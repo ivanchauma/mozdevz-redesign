@@ -16,7 +16,7 @@ gulp.task('sass', function(){
 		console.log(error);
 		this.emit('end');
 	})
-	// .pipe(minifyCSS())
+	.pipe(minifyCSS())
 	.pipe(gulp.dest('./css'));
 });
 
