@@ -1,4 +1,4 @@
-var User = require('../entities/user'),
+var User = require('../model/user'),
 	encryptor = require('./encryption'),
 	mongoose = require('mongoose'),
 	nivelUser = 3;
