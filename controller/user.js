@@ -5,7 +5,7 @@ var User = require('../model/user'),
 
 function UserController(){}
 
-// Inserir novo usuario na base de dados
+// Inserir novo usuario na BD
 UserController.prototype.insert = function(user, callback) {
 	User.findOne({username: user.username, name: user.name}, function(err, dbusuario){
 		if(err) callback(err);

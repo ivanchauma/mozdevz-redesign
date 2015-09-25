@@ -1,7 +1,31 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/css/style.css')
-  body
-    block content
+	head
+		title MozDevz
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+		link(rel='stylesheet', href='/css/style.css')
+	body
+		.wrapper
+			//- Menu (Navbar)
+			nav.navbar.navbar-default
+				.container-fluid
+					.container
+						.header
+							a.navbar-brand(href="#") MozDevz
+						div
+							ul.nav.navbar-nav.navbar-right.responsive-menu
+								li: a(href="") Menu 1
+								li: a(href="") Menu 2
+								li: a(href="") Menu 3
+			//- Menu Mobile
+			.side-nav
+
+			.container.content
+				block content
+					
+			.footer.text-center
+				p MozDevz &copy; 2015
+
+		script(src="/js/jquery-1.11.2.min.js")
+		script(src="/js/bootstrap/bootstrap.min.js")
