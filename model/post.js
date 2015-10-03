@@ -19,7 +19,6 @@ var schema = new mongoose.Schema({
 		type: mongoose.Schema.Type.ObjectId
 		ref: 'Comment'
 	}],
-
 	like: [{ // Like nos posts...
 		type: mongoose.Schema.Type.ObjectId,
 		ref: 'User'
