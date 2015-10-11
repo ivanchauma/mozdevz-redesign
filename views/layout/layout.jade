@@ -8,24 +8,30 @@ html
 	body
 		.wrapper
 			//- Menu (Navbar)
-			nav.navbar.navbar-default
+			nav.navbar.navbar-default.navbar-fixed-top
 				.container-fluid
 					.container
 						.header
 							a.navbar-brand(href="#") MozDevz
-						div
+						div#menu
 							ul.nav.navbar-nav.navbar-right.responsive-menu
-								li: a(href="") Menu 1
-								li: a(href="") Menu 2
-								li: a(href="") Menu 3
+								li: a(href="#apps") apps
+								li: a(href="#eventos") eventos
+								li: a(href="#contacto") contacto
+								li: a(href="#sobre") sobre n&oacute;s
+								li: a(href="/forum") for&uacute;m
+								li: a(href="/blog") blog
+								li
+								li: a(href="") entrar
 			//- Menu Mobile
 			.side-nav
 
 			.container.content
 				block content
-					
+				
 			.footer.text-center
 				p MozDevz &copy; 2015
 
 		script(src="/js/jquery-1.11.2.min.js")
 		script(src="/js/bootstrap/bootstrap.min.js")
+		script(src="/js/scroll.js")
