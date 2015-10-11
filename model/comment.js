@@ -7,6 +7,10 @@ var schema = new mongoose.Schema({
 	user: { // usuario que fez like
 		type: mongoose.Schema.Type.ObjectId,
 		ref: 'User'
+	},
+	created: { //Data em q o comentario foi criado
+		type: Date,
+		default: Date.now
 	}
 });
 
