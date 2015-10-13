@@ -11,6 +11,20 @@
   @include clearfix;
 }
 
+// Padding mixin, for non-container elements
+@mixin padding {
+  padding: 15px 30px;
+  @media (min-width: $screen-sm-min) {
+    padding: 15px 40px;
+  }
+  @media (min-width: $screen-md-min) {
+    padding: 15px 50px;
+  }
+  @media (min-width: $screen-lg-min) {
+    padding: 15px 60px;
+  }
+}
+
 // Creates a wrapper for a series of columns
 @mixin make-row($gutter: $grid-gutter-width) {
   margin-left:  ceil(($gutter / -2));

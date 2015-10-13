@@ -1,12 +1,125 @@
 extends layout/layout
 
 block content
-	section#slider
-	section#apps
-		p Apps page comes here
-	section#eventos
-		p Eventos page comes here
-	section#contacto
-		p contacto page comes here
+	header
+	
+	//- About us section
 	section#sobre
-		p Sobre nos page comes here
+		.container
+			.row.newLine
+				.col-xs-6.col-sm-3.text-center
+					h2 20
+					p Membros
+
+				.col-xs-6.col-sm-3.text-center
+					h2 05
+					p Meetups
+
+				.col-xs-6.col-sm-3.text-center
+					h2 03
+					p Hackathons
+
+				.col-xs-6.col-sm-3.text-center
+					h2 01
+					p Mapthons
+
+				
+				//- informacoes sobre a comunidade
+			
+			.row
+				.col-sm-6
+					.col-sm-4.icon
+					.col-sm-8.detail
+						h3 Valores 
+						p Somos uma comunidade de desenvolvedores mo&ccedil;ambicanos de software e aplica&ccedil;&otilde;es, que usa seus talentos para contribuir para o desenvolvimento social da comunidade na qual estamos inseridos.
+				
+				.col-sm-6
+					.col-sm-4.icon
+					.col-sm-8.detail
+						h3 Vis&atilde;o
+						p Ser uma plataforma activa e colaborativa que promova a integra&ccedil;&atilde;o local, continental e global das comunidades atraves do uso das tecnologias.
+			
+			.row
+				.col-sm-6
+					.col-sm-4.icon
+					.col-sm-8.detail
+						h3 Miss&atilde;o
+						p Usar as TICs para desenvolver o pa&iacute;s, atraves do emponderamento, espirito de trabalho e partilha de conhecimento para tornar Mo&ccedil;ambique numa referencia regional de produ&ccedil;&atilde;o de solu&ccedil;&otilde;s tecnologicas.
+
+				.col-sm-6
+					.col-sm-4.icon
+					.col-sm-8.detail
+						h3 Valores
+						p Prezamos a colabora&ccedil;&atilde;o, inova&ccedil;&atilde;o e cria&ccedil;&atilde;o de solu&ccedil;&otilde;es locais para problemas locais.
+				
+	//- Event section 
+	section#eventos
+		.container
+			h4.title.text-center eventos
+			.row.event
+				.col-sm-6.col-md-4
+					.event-img
+						//- Place for event image
+						img.img-responsive(src="/img/header-bg.jpg")
+					.event-details
+						.event-details-header
+							h5.data 
+								|OUTUBRO 2013 <br>
+								|A comunidade foi fundada
+						.event-details-desc.text-justify
+							p Aliando-se na iniciativa de HackMoz, Hackathon que tinha apoio do MCTESTP, STIFIMO, Sida, entre outros, os voluntarios deste evento tomaram a iniciativa de manter as actividades relacionadas com o desenvolvimento de software em aberto.
+				
+				.col-sm-6.col-md-4
+					.event-img
+						//- Place for event image
+						img.img-responsive(src="/img/header-bg.jpg")
+					.event-details
+						.event-details-header
+							h5.data 
+								|22 DE OUTUBRO 2013 <br>
+								|O primeiro encontro
+						.event-details-desc.text-justify
+							p Com apoio da CIUEM na disponibilizacao do espaco gratuito, o primeiro encontro da comunidade tomou lugar no Campus Universitario da Universidade Eduardo Mondlane em Maputo.
+
+				.col-sm-6.col-md-4
+					.event-img
+						//- Place for event image
+						img.img-responsive(src="/img/header-bg.jpg")
+					.event-details
+						.event-details-header
+							h5.data 
+								|26 DE OUTUBRO 2013 <br>
+								|Co-Organizacao do HackMoz
+						.event-details-desc.text-justify
+							p A comunidade trabalhou na organizacao do terceiro evento HackMoz e contou com mais participantes no segundo encontro da Comunidade em Maputo.
+
+	//- Apps section
+	section#apps
+		.container
+			//- Still designing the concept
+			h4.title.text-center apps
+			.row.app
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+				.col-sm-6.col-md-4
+					img.main.img-responsive(src="/img/header-bg.jpg")
+
+
+	
+	//- Contact us section
+	section#contacto
+		.container
+			p contacto page comes here

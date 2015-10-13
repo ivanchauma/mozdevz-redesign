@@ -1,5 +1,44 @@
 .content{
+	header{
+		height: 100vh;
+
+		background-image: url("/img/header-bg.jpg");
+		background-position: center center;
+		background-size: cover;
+	}
 	section{
-		min-height: 100%;
+		min-height: 100vh;
+		padding: 30px 0;
+		.newLine{
+			padding: 0  0 35px 0;
+		}
+		h4.title{
+			font-weight: bold;
+		}
+
+		.event{
+			&-img{
+
+				// Event image styles
+			}
+			&-details{
+				&-header{
+					h5{
+						font-weight: bold;
+					}
+				}
+			}
+		}
+		
+		.app{
+			img.main{
+				margin: 10px 0;
+			}
+		}
+
+		&:nth-child(5){
+			color: #fff;
+			background: #34495e;
+		}
 	}
 }
