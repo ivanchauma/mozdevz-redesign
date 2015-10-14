@@ -5,10 +5,31 @@ var schema = new mongoose.Schema({
 		type: String,
 		unique: true
 	},
-	password: {
-		type: String,
-		require: true
-	},
+	// Formas de login
+	local: {
+        email: String,
+        password: String,
+    },
+    facebook: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    },
+    twitter: {
+        id: String,
+        token: String,
+        displayName: String,
+        username: String
+    },
+    google: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    },
+    // Formas de login end here
+    
 	level: { // Nivel de usuario (Os niveis sao 1 e 2, sendo 1 - Administrador e 2 - Common user)
 		type: Number
 	},

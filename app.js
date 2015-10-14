@@ -16,6 +16,13 @@ var express = require('express'),
 var app = express();
 
 app.locals.dbURL = require('./config/db').url;
+app.locals.isLoggedIn = function(req, res, next) {
+    if (req.isAuthenticated()){
+        return next();
+    }
+    req.session.redirrect_to = req.originalUrl;
+    res.redirect('/login');
+};
 
 // ======= Configuracoes da aplicacao ======== //
 app.set('port', process.env.PORT || 3000); // Porta http onde estara disponivel a app
@@ -46,12 +53,12 @@ app.use(methodOverride(function(req, res){
 app.use(cookieParser()); // Manipulacao dos cookies nos requests
 
 app.use(express.static(path.join(__dirname, 'public'))); // Directorio de ficheiros estaticos
-// Controlo de sessoes no app
+// Controlo de sessoes na app
 app.use(expressSession({
   secret: 'moz forum app00', 
   saveUninitialized: false, 
-  resave: true 
- ,cookie:{_expires : app.locals.tempoMaximoSessao*60*1000
+  resave: true, 
+  cookie:{_expires : app.locals.tempoMaximoSessao*60*1000
  }
 }));
 
@@ -62,9 +69,11 @@ app.use(flash());
 // Rotas da aplicacao
 var root = require('./routes/index')(app);
 var users = require('./routes/users')(app);
+var profile = require('./routes/profile')(app);
 
 app.use('/', root);
 app.use('/users', users);
+app.use('/profile', profile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
