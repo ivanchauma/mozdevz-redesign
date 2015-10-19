@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('../config/auth');
+var passport = require('../config/passport');
 var flash = require('connect-flash');
 
 function RouterApp(app){
@@ -13,7 +13,7 @@ function RouterApp(app){
     });
 
 
-	/* GET to Login Page. */
+	/* Local Login and Signup */
 	router.get('/login', function(req, res){
         var x = req.flash('message');
         if(x.length >0){
@@ -22,14 +22,32 @@ function RouterApp(app){
         res.render('login', { message:''});
     });
 
-    router.post('/login', passport.authenticate('local',{
+    router.post('/login', passport.authenticate('local-login',{
+        successRedirect: '/profile',
         failureRedirect: '/login',
         failureFlash: true
-    }), function(req, res){
-        var url = req.session.redirrect_to || '/';
-        delete(req.session.redirrect_to);
-        res.redirect(url);
+        // Implementar mais tarde, redirecionar para ultima pagina que visitou...
+    }));
+
+    app.get('/signup', function(req, res) {
+        res.render('signup', { message: req.flash('loginMessage') });
     });
+
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', 
+        failureRedirect : '/signup', 
+        failureFlash : true 
+    }));
+
+
+    //  Facebook
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+    app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+        successRedirect : '/profile',
+        failureRedirect : '/login'
+    }));
+
 
 	/* GET logout page. */
     router.get('/logout', function(req,res){

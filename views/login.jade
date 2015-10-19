@@ -1,4 +1,41 @@
-extends layout/layout
+doctype html
+html
+	head
+		title Entrar - MozDevz
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+		link(rel="stylesheet", href="/css/style.css")
+	body
+		.container
+			.row
+				.col-xs-12.text-center
+					h3.text-center Bem vindo a comunidade
+					p Forum de Programadores e desenvolvedores Mocambicanos que querem mudar o mundo
+				.clearfix
+				
+				.auth
+					.login-container.col-md-12
+						form(action="", method="POST")
+							.header-container.text-center
+								h3 Login	
+							.fields-container
+								.input-field.col-sm-12
+									label.col-xs-12.control-label(for="username") Nome do usuario
+									.col-xs-12
+										input.form-control(id="username", type="text", required)
+									
+								.input-field.col-sm-12
+									label.col-xs-12.control-label(for="password") Senha
+									.col-xs-12
+										input.form-control(id="password", type="password", required)
+									
+								.col-xs-12.text-right
+									.col-xs-12
+										button.btn.btn-default(type="submit") Entrar
+					.social.col-md-4.hide
+						p Social Login list
+					.clearfix
 
-block content
-	//- Login form comes here.
+
+		script(src="/js/jquery-1.11.2.min.js")
+		script(src="/js/bootstrap/bootstrap.min.js")

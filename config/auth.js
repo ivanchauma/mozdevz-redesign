@@ -1,39 +1,20 @@
-var passport = require('passport'),
-	bCrypt = require('bcrypt-nodejs'),
-	LocalStrategy = require('passport-local').Strategy,
-	UserController = require('../controller/user');
+module.exports = {
 
+	'facebookAuth' : {
+		'clientID' 		: 'app-id-here', // App ID
+		'clientSecret' 	: 'app-secret-here', // App Secret
+		'callbackURL' 	: 'http://localhost:3000/auth/facebook/callback'
+	},
 
-passport.use(new LocalStrategy({
-	usernameField: 'username',
-	passwordField: 'password',
-	passReqToCallback: true
-},
+	'twitterAuth' : {
+		'consumerKey' 		: 'your-consumer-key-here',
+		'consumerSecret' 	: 'your-client-secret-here',
+		'callbackURL' 		: 'http://localhost:3000/auth/twitter/callback'
+	},
 
-function(req, username, password, next){
-	UserController.validateLogin(username, password, function(err, result){
-		if (err) return;
-
-		if (result.sucess) {
-			next(null, result.data);
-		}else{
-			next(null, false, req.flash('message', result.message));
-		};
-	});
-}));
-
-passport.serializeUser(function(user, next){
-	if (user === undefined) {
-		next(null, null);
-	};
-	next(null, user._id);
-});
-
-passport.deserializeUser(function(id, next){
-	UserController.selectById(id, function(err, result){
-		if(err) next(err);
-		next(null, result.data);
-	});
-});
-
-module.exports = passport;
+	'googleAuth' : {
+		'clientID' 		: 'your-secret-clientID-here',
+		'clientSecret' 	: 'your-client-secret-here',
+		'callbackURL' 	: 'http://localhost:3000/auth/google/callback'
+	}
+}

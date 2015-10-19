@@ -1,0 +1,20 @@
+.row{
+	.auth{
+		max-width: 600px;
+		margin: 10px auto;
+		padding: 15px 5px;
+		border: 1.5px solid #000;
+		.header-container{
+			h3{
+				margin-top: 0px;
+				margin-bottom: 25px;
+			}
+		}
+	}
+
+	.fields-container{
+		.input-field{
+			margin: 0px 0px 25px;
+		}
+	}
+}

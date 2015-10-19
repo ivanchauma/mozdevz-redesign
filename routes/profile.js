@@ -2,10 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 function UserApp(app){
-	/* GET users listing. */
+
 	router.get('/', app.locals.isLoggedIn, function(req, res, next) {
-	  res.send('respond with a resource');
+	  res.render('profile', {
+	  	user: req.user
+	  });
 	});
+
+	router.get('/edit', app.locals.isLoggedIn, function(req, res, next) {
+	  res.render('edit_profile', {
+	  	user: req.user
+	  });
+	});
+
 
 	return router;
 }

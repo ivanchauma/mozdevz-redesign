@@ -37,7 +37,7 @@ var schema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	local: { // Local de residencia, etc...
+	localidade: { // Local de residencia, etc...
 		res: {
 			type: String
 		}
