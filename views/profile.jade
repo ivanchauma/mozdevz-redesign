@@ -1,0 +1,46 @@
+extends layout/layout
+
+block content
+	.main
+		.container
+			h4.title
+				| Meu perfil 
+				a.edit-profile(href="/profile/edit") Editar
+
+			.row
+				//- Pic and  general information
+				.col-md-3.info-general
+					//- Contact, pic and other basics info's
+					.info-general-basic
+						.container
+							if user
+								p #{user.name}
+								p #{user.localidade.cid}
+								p #{user.cont.email}
+								p #{user.cont.cel}
+								p #{user.det.prof}
+					
+					//- Skill info's
+					.info-general-skill
+						.container
+							h5.title Skills
+							if user
+								for skill in user.det.habil
+									p skill.name
+
+
+					//- Portfolio
+					.info-general-portfolio
+						.container
+							h5.title Portfolio
+							if user
+								for portfolio in user.det.port
+									p 
+										|portfolio
+										span portfolio.ano
+
+
+
+				//- Forum information
+				.col-md-8.forum-general
+					p Section coming soon

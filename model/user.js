@@ -31,14 +31,18 @@ var schema = new mongoose.Schema({
     // Formas de login end here
     
 	level: { // Nivel de usuario (Os niveis sao 1 e 2, sendo 1 - Administrador e 2 - Common user)
-		type: Number
+		type: Number,
+		default: 3
 	},
 	regDate: { // Data de registo
 		type: Date,
 		default: Date.now
 	},
 	localidade: { // Local de residencia, etc...
-		res: {
+		cid: {
+			type: String
+		},
+		prov: {
 			type: String
 		}
 	},
@@ -57,7 +61,10 @@ var schema = new mongoose.Schema({
 		desc:{ // Descricao
 			type: String
 		},
-		habil: [{
+		prof: { //Profissao
+			type: String
+		},
+		habil: [{ // Habilidade (skill's)
 			name: {
 				type: String
 			}

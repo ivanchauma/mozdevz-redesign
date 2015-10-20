@@ -3,7 +3,7 @@ var router = express.Router();
 
 function UserApp(app){
 
-	router.get('/', app.locals.isLoggedIn, function(req, res, next) {
+	router.get('/', function(req, res, next) {
 	  res.render('profile', {
 	  	user: req.user
 	  });
