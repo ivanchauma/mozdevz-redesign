@@ -5,26 +5,27 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet", href="/css/style.css")
-	body(style="background: #fff")
+	body
 		.container
 			.row
 				.col-xs-12.text-center
 					h3.text-center Bem vindo a comunidade
-					p Forum de Programadores e desenvolvedores Mocambicanos que querem mudar o mundo
 				.clearfix
 				
 				.auth
 					.login-container.col-md-12
-						form(action="", method="POST")
+						form(action="/signup", method="POST")
 							.header-container.text-center
-								h3 Login	
+								h3 Registar	
 							.fields-container
-								if message
-									.col-sm-12
-										.bg-danger(style="padding: 5px 0; margin-bottom: 10px")
-											p.text-center #{message}
+
 								.input-field.col-sm-12
-									label.col-xs-12.control-label(for="username") Email
+									label.col-xs-12.control-label(for="name") Nome completo
+									.col-xs-12
+										input.form-control(id="name", name="name", type="text", required)
+
+								.input-field.col-sm-12
+									label.col-xs-12.control-label(for="email") Email
 									.col-xs-12
 										input.form-control(id="email", name="email", type="text", required)
 									
@@ -35,9 +36,9 @@ html
 									
 								.col-xs-12.text-right
 									.col-xs-12
-										button.btn.btn-default(type="submit") Entrar
-					.social.col-md-4.hide
-						p Social Login list
+										button.btn.btn-default(type="submit") Registar
+					.col-md-12
+						a(href="/") Voltar a MozDevz.org
 					.clearfix
 
 

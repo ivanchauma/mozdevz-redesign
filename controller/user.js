@@ -7,15 +7,16 @@ function UserController(){}
 
 // Inserir novo usuario na BD
 UserController.prototype.insert = function(user, callback) {
-	User.findOne({username: user.username, name: user.name}, function(err, dbusuario){
+
+	User.findOne({'local.email': user.local.email}, function(err, dbusuario){
 		if(err) callback(err);
 		else if(dbusuario) {
-			callback(null, {success: false, message: 'Ja existe um usuario com esse nome registado.'});
+			callback(null, {success: false, message: 'Este email ja foi usado para registo.'});
 		}else{
-			encryptor.cryptPassword(user.password, function(err, senha){
+			encryptor.cryptPassword(user.local.password, function(err, senha){
 				if(err) return callback(err);
 
-				user.password = senha;
+				user.local.password = senha;
 				var usuario = new User(user);
 				usuario.save(function(err){
 					if(err) return callback(err);
@@ -108,27 +109,30 @@ UserController.prototype.insertSocial = function(user, callback) {
 	}    
 };
 
-
-
 // Update do User
-UserController.prototype.update = function(id, newData, user, callback){
-	if(newData.password){
-		encriptador.cryptPassword(newData.passwd, function(err, senha){
-			newData.password = senha;
-			User.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$set:newData}, function(err, updated){
+UserController.prototype.update = function(newData, callback){
+
+	User.findById(new mongoose.Types.ObjectId(newData._id), function(err, user){
+		if(err) callback(err);
+		if(!user) callback(null, {success: false, message: 'Usuário não existe na Base de Dados'});
+		else{
+			var identifier = new mongoose.Types.ObjectId(user._id);
+			delete(newData._id);
+
+			if(newData.local.password){
+				encriptador.cryptPassword(newData.local.password, function(err, senha){
+					newData.local.password = senha;
+				});
+			};
+
+			User.findOneAndUpdate({'_id':identifier},{$set: newData},function(err, result){
 				if(err) return callback(err);
-				return callback(null, {'success':true, 'message': 'Usuario actualizado com successo.','data': updated});
+				callback(null, {'success': true,'message': 'Usuario actualizado com sucesso', 'data': result});
 			});
-		});	
-	}else{
-		Usuario.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$set:newData}, function(err, updated){
-			if(err) return callback(err);
+		}
 
-			return callback(null, {'success':true, 'message': 'Usuario actualizado com successo','data': updated});
-		});
-	}
+	});
 }
-
 
 // Selecionar User por id
 UserController.prototype.selectById = function(id, callback){
@@ -140,13 +144,18 @@ UserController.prototype.selectById = function(id, callback){
 }
 
 // Validar login
-UserController.prototype.validateLogin = function(username, password, callback) {
-	User.findOne({'username': username}, function(err, user){
+UserController.prototype.validateLogin = function(email, password, callback) {
+	User.findOne({'local.email': email}, function(err, user){
 		if (err) return callback(err);
 		if (!user) return callback(null, {'success': false, 'message': 'Nome do usuario errado.'});
-		encryptor.comparePassword(password, user.password, function(err, isValid){
+
+		encryptor.comparePassword(password, user.local.password, function(err, isValid){
 			if (err) return callback(err);
 			if (!isValid){
+				encryptor.cryptPassword(password, function(err, senha){
+					console.log("Hardccoded pass: "+senha+" vs user pass: "+user.local.password);
+				});
+				console.log(isValid);
 				return callback(null, {'success': false, 'message': 'Senha incorrecta.'});
 			}else{
 				return callback(null, {'success': true, 'message': 'Usuario autenticado com sucesso.', data: user});

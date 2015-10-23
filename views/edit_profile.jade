@@ -5,42 +5,79 @@ block content
 		.container
 			h4.title
 				| Meu perfil 
-				a.edit-profile(href="/profile/edit") Editar
 
-			.row
-				//- Pic and  general information
-				.col-md-3.info-general
-					//- Contact, pic and other basics info's
-					.info-general-basic
-						.container
-							if user
-								p #{user.name}
-								p #{user.localidade.cid}
-								p #{user.cont.email}
-								p #{user.cont.cel}
-								p #{user.det.prof}
-					
-					//- Skill info's
-					.info-general-skill
-						.container
-							h5.title Skills
-							if user
-								for skill in user.det.habil
-									p skill.name
+			form.form-horizontal(action="/profile/edit", method="POST")
+				input(type="hidden", name="user_id", value="#{user._id}")
+				.row
+					//- Pic and  general information
+					.col-md-3.info-general
+
+						//- Contact, pic and other basics info's
+						.info-general-basic
+							.container
+								if user
+									p.bold #{user.name}
+									p #{user.localidade.cid}
+									p #{user.local.email}
+									p #{user.cont.cel}
+									p #{user.det.prof}
 
 
-					//- Portfolio
-					.info-general-portfolio
-						.container
-							h5.title Portfolio
-							if user
-								for portfolio in user.det.port
-									p 
-										|portfolio
-										span portfolio.ano
+					//- Forum information
+					.col-md-8.forum-general
+
+						//- About me info's
+						.info-general-about.col-sm-12.bg-white
+							header
+								h3.title Etapa 1: Coisas Sobre mim
+								p Nos diga quem es para que os outros membros da comunidade lhe possam conhecer
+							.conteudo
+								//- Genero
+								.form-group.col-md-6
+									header: p.bold Genero
+									div.radio.col-md-4
+										label
+											input(type="radio" name="genero" id="genero-masculino" value="masculino")
+											| Masculino
+									
+									div.radio.col-md-4
+										label
+											input(type="radio" name="genero" id="genero-feminino" value="feminino")
+											| Feminino
+
+								//- Data de nascimento
+								.form-group.col-md-6
+									header: p.bold Data de nascimento
+									div.col-sm-10
+										input(type="date" class="form-control", name="data-nascimento", id="data-nascimento" placeholder="MM/DD/AAAA")
+								
+								//- Data de nascimento
+								.form-group.col-md-12
+									header: p.bold Escreva aqui um pouco ou tudo sobre si
+									div.col-sm-12
+										textarea.form-control(name="det")
 
 
+						//- Skill info's
+						.info-general-skill.col-sm-12.bg-white
+							header
+								h3.title Etapa 2: As minhas habilidades
+								p Diga-nos em que areas podemos contar contigo
+							.conteudo
+								select.form-control
+									option(selected, disabled, value="") Selecione para adicionar habilidades
+									option Android Development
+									option Javascript
+									option NodeJS
+									option Java
+									option PHP
+									option Python
 
-				//- Forum information
-				.col-md-8.forum-general
-					p Section coming soon
+						//- Portfolio
+						//- .info-general-portfolio.col-sm-12
+						//- 	.containeri
+						//- 		h5.title Portfolio
+						.clearfix
+						.info-submit.text-center
+							button.btn.btn-successfull(type="submit") Terminar
+

@@ -2,8 +2,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
 	name: {
-		type: String,
-		unique: true
+		type: String
 	},
 	// Formas de login
 	local: {
@@ -57,6 +56,9 @@ var schema = new mongoose.Schema({
 	det: { // Detalhes do usuario
 		gen:{ // Genero
 			type: String
+		},
+		data:{// Data nascimento
+			type: Date
 		},
 		desc:{ // Descricao
 			type: String

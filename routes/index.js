@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport');
+var UserController = require('../controller/user');
+var User = require('../model/user');
 var flash = require('connect-flash');
 
 function RouterApp(app){
@@ -9,7 +11,7 @@ function RouterApp(app){
 	app.use(passport.session());
 
     router.get('/', function(req, res){
-        res.render('index');
+        res.render('index', {user: req.user});
     });
 
 
@@ -30,14 +32,23 @@ function RouterApp(app){
     }));
 
     app.get('/signup', function(req, res) {
-        res.render('signup', { message: req.flash('loginMessage') });
+        res.render('signup', { message: req.flash('loginMessage')});
     });
 
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/profile', 
-        failureRedirect : '/signup', 
-        failureFlash : true 
-    }));
+    app.post('/signup', function(req, res) {
+        var usuario = new User();
+        usuario.local = {};
+        usuario.name = req.body['name'];
+        usuario.local.email = req.body['email'];
+        usuario.local.password = req.body['password'];
+
+        UserController.insert(usuario, function(err, user){
+            if (err) console.log(err);
+            if (user.success) {
+                res.redirect('/');
+            };
+        });
+    });
 
 
     //  Facebook

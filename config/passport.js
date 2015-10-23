@@ -35,12 +35,15 @@ passport.use('local-login', new LocalStrategy({
 	passReqToCallback: true
 },
 function(req, email, password, next){
-	UserController.validateLogin(username, password, function(err, result){
-		if (err) return;
+    console.log(password+" from passport");
 
-		if (result.sucess) {
+	UserController.validateLogin(email, password, function(err, result){
+		if (err) throw err;
+
+		if (result.success) {
 			next(null, result.data);
 		}else{
+			console.log("Passportjs failed to login...");
 			next(null, false, req.flash('message', result.message));
 		};
 	});
@@ -54,7 +57,18 @@ passport.use('local-signup', new LocalStrategy({
 	passReqToCallback: true
 }, 
 function(req, email, password, next){
-	// Signup logic comes here
+	var usuario = new User();
+	usuario.local.email = email;
+	usuario.local.password = password;
+
+	UserController.insert(usuario, function(err, user){
+		if (err) throw err;
+		if (user.success) {
+			next(null, user.data)
+		}else{
+			// Design failure logic here.
+		};
+	});
 }));
 
 

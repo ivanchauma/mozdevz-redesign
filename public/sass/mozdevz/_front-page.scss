@@ -1,5 +1,5 @@
 .content{
-	header{
+	header.home{
 		height: 100vh;
 
 		background-image: url("/img/header-bg.jpg");
@@ -19,6 +19,7 @@
 	section{
 		min-height: 100vh;
 		padding: 30px 0;
+		background: #fff;
 		.newLine{
 			padding: 0  0 35px 0;
 		}

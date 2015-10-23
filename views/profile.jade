@@ -14,9 +14,9 @@ block content
 					.info-general-basic
 						.container
 							if user
-								p #{user.name}
+								p.bold #{user.name}
 								p #{user.localidade.cid}
-								p #{user.cont.email}
+								p #{user.local.email}
 								p #{user.cont.cel}
 								p #{user.det.prof}
 					
@@ -42,5 +42,5 @@ block content
 
 
 				//- Forum information
-				.col-md-8.forum-general
+				.col-md-8.forum-general.bg-white
 					p Section coming soon
