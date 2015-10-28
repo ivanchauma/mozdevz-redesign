@@ -1,28 +1,40 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	title: { // Obviamente o titulo
-		type: String
+	title: { // Conteudo do comentario
+		type: String,
+		required:'Title is required for posting an Post',
+		d
 	},
-	content: { // Conteudo do post
-		type: String
+	description:{
+		type:String,
+		required:'Description is required for posting an Post'
 	},
-	categorie: { // Categorias
-		type: mongoose.Schema.Type. ObjectId,
-		ref: 'Categorie'
-	},
-	canComment: { // Permitir que outros usuarios possam comentar sobre o post
-		type: Boolean,
-		default: false
-	},
-	comment: [{ // Comentarios dos post
-		type: mongoose.Schema.Type.ObjectId
-		ref: 'Comment'
+	category:[{
+		type:mongoose.Schema.Type.ObjectId,
+		ref:'Category'
 	}],
-	like: [{ // Like nos posts...
+	comments:[{
+		type:mongoose.Schema.Type.ObjectId,
+		ref:'Comment'
+	}],
+	allowComments:{
+		type:Boolean,
+		default:true
+	},
+	project:{
+		mongoose.Schema.Type.ObjectId,
+		ref:'Project'
+	}
+
+	user: { // usuario que fez like
 		type: mongoose.Schema.Type.ObjectId,
 		ref: 'User'
-	}]
+	},
+	created: {
+		type: Date,
+		default: Date.now
+	},
 });
 
 module.exports = exports = mongoose.model('Post', schema);
