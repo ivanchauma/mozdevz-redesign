@@ -11,6 +11,10 @@ var schema = new mongoose.Schema({
 	created: { //Data em q o comentario foi criado
 		type: Date,
 		default: Date.now
+	},
+	post:{
+		type:Schema.Type.ObjectId,
+		ref:'Post'
 	}
 });
 

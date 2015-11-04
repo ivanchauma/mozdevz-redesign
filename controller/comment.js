@@ -35,7 +35,7 @@ var User = require('../model/user'),
 	//Delete a given comment
 	CommentController.prototype.delete = function(id, callback){
 		//var com = Comment.findOne(id);
-		Comment.find({id:id}).remove(function(err){
+		Comment.find({id:id}).remove(function(err,com){
 			if(err){
 				return callback(err);
 			}
