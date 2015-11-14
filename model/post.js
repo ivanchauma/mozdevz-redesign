@@ -1,10 +1,9 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	title: { // Conteudo do comentario
+	title: { // Titulo do comentario
 		type: String,
-		required:'Title is required for posting an Post',
-		d
+		required:'Title is required for posting an Post'
 	},
 	description:{
 		type:String,

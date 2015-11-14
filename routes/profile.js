@@ -19,6 +19,8 @@ function UserApp(app){
 
 	router.post('/edit', function(req, res){
 		var usuario = new User();
+		var skill = [];
+		var skill_det = req.body['skill'].split(',');
 		usuario._id = req.body['user_id'];
 		if(req.body['genero'])
 			usuario.det.gen = req.body['genero'];
@@ -29,12 +31,19 @@ function UserApp(app){
 		if(req.body['det'])
 			usuario.det.desc = req.body['det'];
 
-		// Por enquanto paramos por aqui. Just for prototype demo
+		if(req.body['skill']){
+			for(var i = 0; i < skill_det.length; i++){
+				var x = {name: skill_det[i]};
+				skill.push(x);
+			}
+			usuario.det.habil = skill;
+		}
+
 		
 		UserController.update(usuario, function(err, response){
 			if (err) throw err;
 			if(response.success)
-				res.render('profile', {user: response.data});
+				res.redirect('/profile');
 		});
 	});
 

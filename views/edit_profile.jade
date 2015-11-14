@@ -49,13 +49,14 @@ block content
 								.form-group.col-md-6
 									header: p.bold Data de nascimento
 									div.col-sm-10
-										input(type="date" class="form-control", name="data-nascimento", id="data-nascimento" placeholder="MM/DD/AAAA")
+										input(type="date" class="form-control", name="data-nascimento", id="data-nascimento" placeholder="MM/DD/AAAA", value="#{user.det.data}")
 								
 								//- Data de nascimento
 								.form-group.col-md-12
 									header: p.bold Escreva aqui um pouco ou tudo sobre si
 									div.col-sm-12
 										textarea.form-control(name="det")
+											| #{user.det.desc}
 
 
 						//- Skill info's
@@ -64,14 +65,12 @@ block content
 								h3.title Etapa 2: As minhas habilidades
 								p Diga-nos em que areas podemos contar contigo
 							.conteudo
-								select.form-control
-									option(selected, disabled, value="") Selecione para adicionar habilidades
-									option Android Development
-									option Javascript
-									option NodeJS
-									option Java
-									option PHP
-									option Python
+								.form-group.col-sm-12
+									- var skills = user.det.habil
+									- var skill_name = ""
+									for skill in skills
+										- skill_name += skill.name+","
+									input.form-control(type="text", name="skill", placeholder="Separe os skill's com virgulas", value="#{skill_name}")
 
 						//- Portfolio
 						//- .info-general-portfolio.col-sm-12

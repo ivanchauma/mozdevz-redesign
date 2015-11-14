@@ -36,7 +36,7 @@ app.use(logger('dev')); // Gestor de logs de erro na consola
 
 // Parse dos corpos dos http requests
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ 
+app.use(bodyParser.urlencoded({
     extended: false,
     parameterLimit: 10000,
     limit: 1024 * 1024 * 10 }));
@@ -55,9 +55,9 @@ app.use(cookieParser()); // Manipulacao dos cookies nos requests
 app.use(express.static(path.join(__dirname, 'public'))); // Directorio de ficheiros estaticos
 // Controlo de sessoes na app
 app.use(expressSession({
-  secret: 'moz forum app00', 
-  saveUninitialized: false, 
-  resave: true, 
+  secret: 'moz forum app00',
+  saveUninitialized: false,
+  resave: true,
   cookie:{_expires : app.locals.tempoMaximoSessao*60*1000
  }
 }));
@@ -70,10 +70,12 @@ app.use(flash());
 var root = require('./routes/index')(app);
 var users = require('./routes/users')(app);
 var profile = require('./routes/profile')(app);
+var forum = require('./routes/forum')(app);
 
 app.use('/', root);
 app.use('/users', users);
 app.use('/profile', profile);
+app.use('/forum', forum);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -124,17 +126,17 @@ db.once('open', function(){
 var options = {
   server: {
     socketOptions: {
-     keepAlive: 1, 
-     connectTimeoutMS: 30000 
-   } 
-  }, 
+     keepAlive: 1,
+     connectTimeoutMS: 30000
+   }
+  },
 
   replset: {
-    socketOptions: { 
-      keepAlive: 1, 
-      connectTimeoutMS : 30000 
-    } 
-  } 
+    socketOptions: {
+      keepAlive: 1,
+      connectTimeoutMS : 30000
+    }
+  }
 };
 
 mongoose.connect(app.locals.dbURL, options);

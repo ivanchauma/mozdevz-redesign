@@ -24,48 +24,46 @@ UserController.prototype.insert = function(user, callback) {
 				});
 			});
 		};
-	});	
+	});
 };
 
 UserController.prototype.insertSocial = function(user, callback) {
 	switch(user.type){
-
-		// Facebook 
+		// Facebook
 		case 'facebook' :
 				if(!req.user){
 					User.findOne({ 'facebook.id' : user.facebook.id }, function(err, usuario) {
 				    	if (usuario) {
-	                        if (!usuario.facebook.token) {
-	                        	usuario.facebook.token = user.facebook.token;
-	                            usuario.facebook.name  = user.facebook.name;
-	                            usuario.facebook.email = user.facebook.email;
+                if (!usuario.facebook.token) {
+                	usuario.facebook.token = user.facebook.token;
+                    usuario.facebook.name  = user.facebook.name;
+                    usuario.facebook.email = user.facebook.email;
 
-	                            usuario.save(function(err) {
-	                                if (err) throw err;
-	                        		return callback(null, {'success': true,'data': user});
-	                            });
-	                        }
-	                        return callback(null, {'success': true,'data': usuario});
+                    usuario.save(function(err) {
+                        if (err) throw err;
+                		return callback(null, {'success': true,'data': user});
+                    });
+                }
+                return callback(null, {'success': true,'data': usuario});
 
 				    	}else{
 				    		user.save(function(err) {
-				                if (err) throw err;
-				                return callback(null, {'success': true,'data': user});
-				            });
+		                if (err) throw err;
+		                return callback(null, {'success': true,'data': user});
+		            });
 				    	};
 				    });
 				}else{
-					var newUser = req.user; 
+					var newUser = req.user;
+            newUser.facebook.id    = user.facebook.id;
+            newUser.facebook.token = user.facebook.token;
+            newUser.facebook.name  = user.facebook.name;
+            newUser.facebook.email = user.facebook.email;
 
-	                newUser.facebook.id    = user.facebook.id;
-	                newUser.facebook.token = user.facebook.token;
-	                newUser.facebook.name  = user.facebook.name;
-	                newUser.facebook.email = user.facebook.email;
-
-	                newUser.save(function(err) {
-	                    if (err) throw err;
-	                    return callback(null, {'success': true,'data': newUser});
-	                });
+            newUser.save(function(err) {
+                if (err) throw err;
+                return callback(null, {'success': true,'data': newUser});
+            });
 				}
 		break;
 
@@ -75,14 +73,14 @@ UserController.prototype.insertSocial = function(user, callback) {
 					User.findOne({ 'twitter.id' : user.twitter.id }, function(err, usuario) {
 				    	if (usuario) {
 				    		if(!usuario.twitter.token){
-				    			usuario.twitter.token       = user.twitter.token;
-	                            usuario.twitter.username    = user.twitter.username;
-	                            usuario.twitter.displayName = user.twitter.displayName;
+				    			usuario.twitter.token         = user.twitter.token;
+                    usuario.twitter.username    = user.twitter.username;
+                    usuario.twitter.displayName = user.twitter.displayName;
 
-	                            usuario.save(function(err){
-	                            	if(err) throw err;
-	                            	return callback(null, {'success': true,'data': user});
-	                            })
+                    usuario.save(function(err){
+                    	if(err) throw err;
+                    	return callback(null, {'success': true,'data': user});
+                    });
 				    		}
 				    		return callback(null, {'success': true,'data': usuario});
 				    	}else{
@@ -104,33 +102,34 @@ UserController.prototype.insertSocial = function(user, callback) {
 				    	if (err) throw err;
 				    	return callback(null, {'success': true, 'data': newUser});
 				    });
-				};		
+				};
 		break;
-	}    
+
+		default:
+		break;
+	}
 };
 
 // Update do User
-UserController.prototype.update = function(newData, callback){
-
-	User.findById(new mongoose.Types.ObjectId(newData._id), function(err, user){
+UserController.prototype.update = function(upData, callback){
+	User.findById(new mongoose.Types.ObjectId(upData._id), function(err, user){
 		if(err) callback(err);
 		if(!user) callback(null, {success: false, message: 'Usuário não existe na Base de Dados'});
 		else{
-			var identifier = new mongoose.Types.ObjectId(user._id);
-			delete(newData._id);
+			var ident = new mongoose.Types.ObjectId(user._id);
+			delete(upData._id);
 
-			if(newData.local.password){
-				encriptador.cryptPassword(newData.local.password, function(err, senha){
-					newData.local.password = senha;
+			if(upData.local.password){
+				encriptador.cryptPassword(upData.local.password, function(err, senha){
+					upData.local.password = senha;
 				});
 			};
 
-			User.findOneAndUpdate({'_id':identifier},{$set: newData},function(err, result){
+			User.findOneAndUpdate({'_id':ident},{$set: upData},function(err, result){
 				if(err) return callback(err);
 				callback(null, {'success': true,'message': 'Usuario actualizado com sucesso', 'data': result});
 			});
 		}
-
 	});
 }
 

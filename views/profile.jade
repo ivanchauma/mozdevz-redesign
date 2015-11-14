@@ -4,7 +4,7 @@ block content
 	.main
 		.container
 			h4.title
-				| Meu perfil 
+				//- | Meu perfil 
 				a.edit-profile(href="/profile/edit") Editar
 
 			.row
@@ -12,32 +12,42 @@ block content
 				.col-md-3.info-general
 					//- Contact, pic and other basics info's
 					.info-general-basic
-						.container
-							if user
-								p.bold #{user.name}
-								p #{user.localidade.cid}
-								p #{user.local.email}
-								p #{user.cont.cel}
-								p #{user.det.prof}
+						if user
+							.col-s12
+								p.bold.text-center #{user.name}
+								if (!user.det.prof)
+									p.text-center: i Profissao
+								else
+									p.text-center #{user.det.prof}
+								.divider
+								
+								if (!user.localidade.cid)
+									p: i Cidade
+								else
+									p #{user.localidade.cid}
+							.col-s12
+								if (!user.local.email)
+									p: i Email
+								else
+									p #{user.local.email}
+							
+							.col-s12
+								if (!user.cont.cel)
+									p: i Celular
+								else
+									p #{user.cont.cel}
+
 					
 					//- Skill info's
 					.info-general-skill
-						.container
-							h5.title Skills
+							h5.text-center.title Skills
 							if user
-								for skill in user.det.habil
-									p skill.name
-
-
-					//- Portfolio
-					.info-general-portfolio
-						.container
-							h5.title Portfolio
-							if user
-								for portfolio in user.det.port
-									p 
-										|portfolio
-										span portfolio.ano
+								-var n=0
+								while n < 5
+									.col-s12
+										p #{user.det.habil[n++].name}
+								.col-s12
+									p ...
 
 
 
