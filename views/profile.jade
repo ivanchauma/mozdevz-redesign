@@ -41,13 +41,15 @@ block content
 					//- Skill info's
 					.info-general-skill
 							h5.text-center.title Skills
-							if user
+							if user.det.habil.length
 								-var n=0
 								while n < 5
 									.col-s12
 										p #{user.det.habil[n++].name}
 								.col-s12
 									p ...
+							else
+								p Nenhuma habilidade registada
 
 
 
