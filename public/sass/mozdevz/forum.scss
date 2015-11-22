@@ -1,0 +1,25 @@
+.posts-container {
+	padding: 20px;
+}
+ul.posts {
+	list-style: none;
+	padding: 0;
+	li {
+		padding: 5px 20px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+}
+.comments {
+	margin: 20px auto;
+	.comment-box {
+		border: 1px solid rgba(0,0,0,0.2);
+		margin-top: 10px;
+	}
+}
+.comment-new {
+	padding: 20px; 
+	margin: 20px 0;
+}

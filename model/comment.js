@@ -1,20 +1,20 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-	content: { // Conteudo do comentario
-		type: String
+	post:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref:'Post'
 	},
-	user: { // usuario que fez like
-		type: mongoose.Schema.Type.ObjectId,
+	contents: [{ // Conteudo do comentario
+		content: String
+	}],
+	userLike: { // usuario que fez like
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
 	created: { //Data em q o comentario foi criado
 		type: Date,
 		default: Date.now
-	},
-	post:{
-		type:Schema.Type.ObjectId,
-		ref:'Post'
 	}
 });
 

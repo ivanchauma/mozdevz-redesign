@@ -6,28 +6,28 @@ var schema = new mongoose.Schema({
 		required:'Title is required for posting an Post'
 	},
 	description:{
-		type:String,
-		required:'Description is required for posting an Post'
+		type: String,
+		required: 'Description is required for posting an Post'
 	},
 	category:[{
-		type:mongoose.Schema.Type.ObjectId,
-		ref:'Category'
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Category'
 	}],
-	comments:[{
-		type:mongoose.Schema.Type.ObjectId,
-		ref:'Comment'
-	}],
+	comments:{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Comment'
+	},
 	allowComments:{
-		type:Boolean,
-		default:true
+		type: Boolean,
+		default: true
 	},
 	project:{
-		mongoose.Schema.Type.ObjectId,
-		ref:'Project'
-	}
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Project'
+	},
 
 	user: { // usuario que fez like
-		type: mongoose.Schema.Type.ObjectId,
+		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	},
 	created: {

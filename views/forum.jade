@@ -3,3 +3,13 @@ extends layout/layout
 block content
 	.main
 		.container
+			h3 Posts 
+				a.edit-profile(href="/forum/new") Novo post
+			.posts-container
+				.bg-white
+					if (posts.mensagem)
+						h4 #{posts.mensagem}
+					else
+						ul.posts
+							for post in posts
+								li: h4: a(href="/forum/det/#{post._id}") #{post.title}

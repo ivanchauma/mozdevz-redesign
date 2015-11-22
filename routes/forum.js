@@ -11,10 +11,10 @@ function UserApp(app){
     PostController.selectAll(function(err, posts) {
       if(posts.success) {
         if(!posts.data) {
-          posts.mensagem = 'Nao foi encontrado nenhuma publicacao.';
+          posts.mensagem = 'Nao foi encontrada nenhuma publicacao.';
           res.render('forum', {user: req.user, 'posts': posts});
         } else {
-          res.render('forum', {user: req.user, 'posts': posts});
+          res.render('forum', {user: req.user, 'posts': posts.data});
         }
       }
     });
@@ -24,17 +24,21 @@ function UserApp(app){
     res.render('new_forum', {user: req.user});
   });
 
-  router.post('/new', app.locals.isLoggedIn, function(req, res) {
+  router.post('/new', function(req, res) {
     var post = new Post();
     post.title = req.body['title'];
     post.description = req.body['description'];
-    post.allowComments = req.body['allowComments'];
+    if (req.body['permitir_comentarios']) 
+      post.allowComments = true
+    else
+      post.allowComments = false
+
+    post.user = req.user;
 
     PostController.insert(post, function(err, resposta) {
       if(err) throw err;
       if(resposta.success) {
-        // Responde com um json. Prevista submissao ajax...
-        res.json(resposta);
+        res.redirect('/forum');
       } else {
         var resp = {success: false, 'message': 'Ocorreu um erro ao fazer o post. Tente novamente mais tarde.'};
         res.json(resp);
@@ -42,8 +46,37 @@ function UserApp(app){
     });
   });
 
+  router.get('/det/:id?', function(req, res){
+    var id = req.params.id;
+    if(id) {
+      PostController.selectById(id, function(err, result) {
+        if(err) throw err;
+        if(!result.success) {
+          result.mensagem = result.message;
+          res.render('forum_details', {'post': result});
+        } else {
+          res.render('forum_details', {'post': result.data});
+        }
+      });
+    } else {
+      res.redirect('/forum');
+    }
+  });
+
+  router.post('/comment/new', function(req, res) {
+    var comment = new Comment();
+    comment.content = req.body['comment'];
+    comment.post = req.body['post'];
+
+    CommentController.insert(comment, function(err, result) {
+      if(err) throw err;
+      if(result.success) {
+        res.redirect('/forum/det/'+comment.post);
+      }
+    });
+  });
+
 	return router;
 }
-
 
 module.exports = exports = UserApp;

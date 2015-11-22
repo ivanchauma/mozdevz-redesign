@@ -7,14 +7,12 @@ var User = require('../model/user'),
 
 
 //Insert a comment
-	CommentController.prototype.insert= function(comment,cb){
+	CommentController.prototype.insert= function(content, callback){
 		//initialize the comment
-		var com= new Comment(comment);
+		var com = new Comment(content);
 		com.save(function(err){
-			if(err){
-				return callback(err);
-			}
-		return	callback(null,{'success':true,'message':'Comentario efectuado com sucesso',data:com});
+			if(err)	return callback(err);
+			return	callback(null,{'success': true,'message': 'Comentario efectuado com sucesso', 'data': com});
 		});
 	};
 
@@ -23,11 +21,11 @@ var User = require('../model/user'),
 	//update a given comment
 	CommentController.prototype.update = function(id, newData, comment, callback){
 		Comment.findOneAndUpdate({'_id': new mongoose.Types.ObjectId(id)}, {$set:newData}, function(err, updated){
-		if(err){
-		 return callback(err);
-		}
-		return callback(null, {'success':true, 'message': 'Comentario actualizado com successo','data': updated});
-	});
+			if(err){
+			 return callback(err);
+			}
+			return callback(null, {'success':true, 'message': 'Comentario actualizado com successo','data': updated});
+		});
 	};
 
 
@@ -64,4 +62,4 @@ var User = require('../model/user'),
 	};
 
 
-module.exports = exports = new UserController();
+module.exports = exports = new CommentController();

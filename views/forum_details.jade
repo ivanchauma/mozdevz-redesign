@@ -1,0 +1,28 @@
+extends layout/layout
+
+block content
+	.main
+		.container
+			h3 #{post.title} 
+				a.edit-profile(href="/forum") Voltar ao forum
+			.posts-container.bg-white
+					if (post.mensagem)
+						h4 #{post.mensagem}
+					else
+						h4 #{post.title}
+						p #{post.description}
+				//- if (post.allowComments)
+				//- 	for comment in post.comments
+				//- 		.comments
+				//- 			.comment-box
+				//- 				h5.name #{comment.user}
+				//- 				p.content #{comment.content}
+				//- .comment-new.bg-white
+				//- 	form(action="/forum/comment/new", method="POST")
+				//- 		.form-group
+				//- 			input(type="hidden", name="post", value="#{post._id}")
+				//- 			label(for="comment") Seu comentario
+				//- 			textarea.form-control(name="title", id="comment", name="comment")
+				//- 		.form-group
+				//- 				input(type="submit", value="Comentar")
+

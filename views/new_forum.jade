@@ -1,0 +1,25 @@
+extends layout/layout
+
+block content
+	.main
+		.container
+			h3 Novo Post 
+				a.edit-profile(href="/forum") Voltar ao forum
+			.bg-white.posts-container
+				.row
+					.col-xs-12.col-sm-8
+						form(action="/forum/new", method="POST")
+							.form-group
+								label(for="title") Titulo
+								input.form-control(type="text", name="title", id="title")
+
+							.form-group
+								label(for="description") Descricao do post
+								textarea.form-control(name="description", id="description")
+							.form-group
+								.checkbox
+									label
+										input(type="checkbox", checked=true, name="permitir_comentarios")
+										|Permitir comentarios neste post
+							.form-group
+								input(type="submit", value="Publicar")
